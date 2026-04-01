@@ -1,0 +1,23 @@
+[
+  {
+    "id": "thermal_01",
+    "use-case": "Urban Heat Island analysis",
+    "question": "Analyse the Urban Heat Islands in this area during august 2025, and the correlation with the vegetation index (excluding water areas). Add the related map overlays for LST, UHI, and NDVI.",
+    "answer": "There is a moderate negative correlation between vegetation and surface temperature: Pearson r -0.35",
+    "aoi": [[55.42095140513783,25.39722706220951],[55.545767097661695,25.31100530438212],[55.37894612399998,25.100345071482494],[55.20912477311492,25.00901847633611],[55.11851338094692,25.06882334405499],[55.28173390193814,25.269770688491533],[55.42095140513783,25.39722706220951]]
+  },
+  {
+    "id": "vegetation_01",
+    "use-case": "vegetation analysis",
+    "question": "Give me a comprehensive vegetation health report for this park comparing the state in January 2026 with the state in January 2016.",
+    "answer": "The park has undergone remarkable greening over the past decade. The substantial reduction in bare areas and the significant increase in moderate-to-dense vegetation coverage indicates highly successful landscaping efforts, effective irrigation management, and/or favorable environmental conditions. This is an excellent example of successful urban greening in an arid environment.",
+    "aoi": [[55.46449472555156,25.228106437817345],[55.442390936383134,25.231699776637882],[55.44213466056641,25.222948072285575],[55.4374576269162,25.214311667258656],[55.43092259359639,25.217267821211223],[55.427719145891956,25.207413695414346],[55.45885665758911,25.199703734839503],[55.46449472555156,25.228106437817345]]
+  },
+  {
+    "id": "fire_01",
+    "use-case": "fire analysis",
+    "question": "Assess the damage of the Palisades Fire that happened from January 7 to January 31 2025.",
+    "answer": "The analysis reveals catastrophic damage from the Palisades Fire: Over half (54%) of the analyzed area experienced high severity burns, indicating complete destruction of vegetation and significant soil damage. Nearly three-quarters (73.4%) of the area shows some level of burn damage.",
+    "aoi": [[-118.51958247232822,34.02677948669357],[-118.55043716606187,34.03986163934394],[-118.57913920674434,34.040010288577236],[-118.5798567577614,34.12618293087229],[-118.50612839075856,34.12514343911765],[-118.51958247232822,34.02677948669357]]
+  }
+]

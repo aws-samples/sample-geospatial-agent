@@ -1,0 +1,20 @@
+# Temporary files
+*.bkp
+__pycache__/
+.DS_Store
+
+# CDK
+cdk.context.json
+cdk.out/
+
+# Development
+dev/
+node_modules/
+evaluation/credentials.json
+
+# Testing
+data/images/
+
+# Model weights
+*.pt
+data/weights/
