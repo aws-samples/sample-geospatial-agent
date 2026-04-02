@@ -322,6 +322,14 @@ Edit `./agent/geospatial_agent/bedrock_models.py`. The `DEFAULT_MODEL_ID` variab
 
 ## Security
 
+### Network Access Control
+
+The agent requires outbound internet access to retrieve satellite imagery from external sources such as **Element84 Earth Search STAC API** (`earth-search.aws.element84.com`).
+
+To prevent the agent from accessing unintended public domains, we recommend network level restriction of egress traffic to only the required endpoints. [AWS Network Firewall](https://docs.aws.amazon.com/network-firewall/latest/developerguide/what-is-aws-network-firewall.html) supports domain-based filtering with stateful rules, allowing you to create an HTTPS allow-list that restricts the agent's outbound traffic at the network level.
+
+### Reporting security issues
+
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
 
 ## License
