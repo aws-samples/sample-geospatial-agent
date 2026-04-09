@@ -191,7 +191,20 @@ export function ChatSidebar({
     }
   };
 
+  const computeAreaKm2 = (coords: number[][]) => {
+    const toRad = (d: number) => (d * Math.PI) / 180;
+    const R = 6371;
+    let area = 0;
+    for (let i = 0; i < coords.length; i++) {
+      const [lon1, lat1] = coords[i];
+      const [lon2, lat2] = coords[(i + 1) % coords.length];
+      area += toRad(lon2 - lon1) * (2 + Math.sin(toRad(lat1)) + Math.sin(toRad(lat2)));
+    }
+    return Math.abs((area * R * R) / 2);
+  };
+
   const hasPolygon = coordinates && coordinates.length > 0;
+  const polygonAreaKm2 = hasPolygon ? computeAreaKm2(coordinates!) : 0;
 
   const renderMessageContent = (msg: Message) => (
     <>
@@ -279,7 +292,7 @@ export function ChatSidebar({
             />
             {hasPolygon && (
               <Box color="text-status-success" fontSize="body-s">
-                ✓ Polygon selected ({coordinates?.length} points)
+                ✓ Polygon selected ({polygonAreaKm2.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} km²)
               </Box>
             )}
           </SpaceBetween>
