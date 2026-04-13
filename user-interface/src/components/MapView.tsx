@@ -146,7 +146,7 @@ export function MapView({ onDrawnGeometry, onDrawCleared, imageOverlays, resetTr
         const id = `overlay-${overlay.imageName}`;
         
         // Skip if already added to the map
-        if (mapInstance.getLayer(id)) {
+        if (mapInstance.getSource(id)) {
           console.log("Skipping overlay (already on map):", id);
           return;
         }
@@ -185,11 +185,18 @@ export function MapView({ onDrawnGeometry, onDrawCleared, imageOverlays, resetTr
       });
     };
 
-    if (mapInstance.loaded()) {
+    // Use isStyleLoaded() instead of loaded() — loaded() returns false when tiles
+    // are still rendering (common when tab is backgrounded), but isStyleLoaded()
+    // only checks if the style infrastructure is ready for addSource/addLayer calls.
+    if (mapInstance.isStyleLoaded()) {
       addOverlays();
     } else {
-      mapInstance.once('load', addOverlays);
+      mapInstance.once('styledata', addOverlays);
     }
+
+    return () => {
+      mapInstance.off('styledata', addOverlays);
+    };
   }, [imageOverlays]);
 
 

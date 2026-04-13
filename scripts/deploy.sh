@@ -34,6 +34,9 @@ COGNITO_IDENTITY_POOL_ID=$(get_output "CognitoIdentityPoolId")
 AGENT_RUNTIME_ARN=$(get_output "AgentRuntimeArn")
 AWS_REGION=$(echo "$AGENT_RUNTIME_ARN" | cut -d: -f4)
 
+# Remove .env.local if it exists — it takes precedence over .env in Vite builds
+rm -f "$UI_DIR/.env.local"
+
 echo "=== Generating .env file ==="
 cat > "$UI_DIR/.env" << EOF
 VITE_COGNITO_USER_POOL_ID=$COGNITO_USER_POOL_ID
