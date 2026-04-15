@@ -2,30 +2,30 @@ import inspect
 from typing import Callable, Type, Union
 
 
+def format_function(func, indent: str = "") -> str:
+    try:
+        sig = inspect.signature(func)
+        result = f"{indent}def {func.__name__}{sig}:\n"
+    except (ValueError, TypeError):
+        result = f"{indent}def {func.__name__}(...):\n"
+    
+    doc = inspect.getdoc(func)
+    if doc:
+        doc_lines = doc.split('\n')
+        result += f'{indent}    """\n'
+        for line in doc_lines:
+            result += f"{indent}    {line}\n"
+        result += f'{indent}    """\n'
+    
+    result += f"{indent}    ...\n"
+    return result
+
+
 def get_documentation(obj: Union[Callable, Type]) -> str:
     """
     Extract documentation from a Python function or class.
     Returns formatted text suitable for a coding agent.
     """
-    
-    def format_function(func, indent: str = "") -> str:
-        try:
-            sig = inspect.signature(func)
-            result = f"{indent}def {func.__name__}{sig}:\n"
-        except (ValueError, TypeError):
-            result = f"{indent}def {func.__name__}(...):\n"
-        
-        doc = inspect.getdoc(func)
-        if doc:
-            doc_lines = doc.split('\n')
-            result += f'{indent}    """\n'
-            for line in doc_lines:
-                result += f"{indent}    {line}\n"
-            result += f'{indent}    """\n'
-        
-        result += f"{indent}    ...\n"
-        return result
-
     if inspect.isclass(obj):
         # Class header with constructor signature
         try:
@@ -37,10 +37,10 @@ def get_documentation(obj: Union[Callable, Type]) -> str:
         # Class docstring
         class_doc = inspect.getdoc(obj)
         if class_doc:
-            output += f'    """\n'
+            output += '    """\n'
             for line in class_doc.split('\n'):
                 output += f"    {line}\n"
-            output += f'    """\n\n'
+            output += '    """\n\n'
         
         # Methods (public + key dunder methods)
         important_dunders = {

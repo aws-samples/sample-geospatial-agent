@@ -4,6 +4,7 @@ bedrock-agentcore==1.1.1
 aws-opentelemetry-distro==0.12.0
 boto3==1.42.2
 jinja2==3.1.6
+smolagents==1.24.0
 
 # Geospatial Analysis
 numpy==2.2.6

@@ -185,18 +185,28 @@ export function MapView({ onDrawnGeometry, onDrawCleared, imageOverlays, resetTr
       });
     };
 
-    // Use isStyleLoaded() instead of loaded() — loaded() returns false when tiles
-    // are still rendering (common when tab is backgrounded), but isStyleLoaded()
-    // only checks if the style infrastructure is ready for addSource/addLayer calls.
+    // When the tab is backgrounded, isStyleLoaded() can return false even though
+    // the style is fully ready, and 'styledata' won't fire again. Use a polling
+    // fallback to ensure overlays are added regardless of tab visibility.
     if (mapInstance.isStyleLoaded()) {
       addOverlays();
     } else {
       mapInstance.once('styledata', addOverlays);
-    }
 
-    return () => {
-      mapInstance.off('styledata', addOverlays);
-    };
+      // Fallback: poll until style is loaded (handles backgrounded tabs where
+      // 'styledata' never fires because the style was already loaded).
+      const interval = setInterval(() => {
+        if (mapInstance.isStyleLoaded()) {
+          clearInterval(interval);
+          addOverlays();
+        }
+      }, 500);
+
+      return () => {
+        mapInstance.off('styledata', addOverlays);
+        clearInterval(interval);
+      };
+    }
   }, [imageOverlays]);
 
 
