@@ -4,6 +4,10 @@ An AI-powered geospatial analysis agent that enables natural language interactio
 
 [![Demo Video](https://img.youtube.com/vi/Q5G0DdFtpTo/maxresdefault.jpg)](https://youtu.be/Q5G0DdFtpTo)
 
+This is a [Code Agent](#the-coding-agent) providing better accuracy, higher speed, and lower cost compared to a traditional tool-invoking agent.
+
+For a traditional tool-invoking Geospatial Agent solution, you can use: https://github.com/aws-samples/sample-geospatial-agent-on-aws
+
 ## Table of Contents
 
 1. [Architecture](#architecture)
